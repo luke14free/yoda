@@ -1,17 +1,36 @@
-application: yoda
+application: yoda-profile-management
 version: 1
 runtime: python27
 api_version: 1
 threadsafe: yes
 
-handlers:
-- url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
+builtins:
+- remote_api: on
 
-- url: .*
-  script: main.app
+inbound_services:
+- warmup
 
 libraries:
-- name: webapp2
-  version: "2.5.1"
+- name: django
+  version: latest
+
+handlers:
+- url: /_ah/queue/deferred
+  script: djangoappengine.deferred.handler.application
+  login: admin
+
+- url: /_ah/stats/.*
+  script: djangoappengine.appstats.application
+
+- url: /media/admin
+  static_dir: django/contrib/admin/media
+  expiration: '0'
+  
+- url: /static/
+  static_dir: static
+
+- url: /fiaojwiajfw/
+  static_dir: olap/stuff
+
+- url: /.*
+  script: djangoappengine.main.application
