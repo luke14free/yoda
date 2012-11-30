@@ -1,0 +1,89 @@
+.menu-bar-nav .menu-notifiche-div {  }
+.menu-bar-nav .menu-notifiche-div a:hover, .menu-bar-nav .menu-notifiche-div:hover{ font-weight:normal; text-decoration:underline; }
+.menu-bar-nav .linktopbig {padding-right:5px; margin-right:5px}
+.menu-bar-nav .linktopbig:hover {border-right:3px #6CF solid;}
+.menu-bar-nav .menu-notifiche-title { font-size:12px; font-weight:bold;  color:#333 }
+.menu-bar-nav .menu-notifiche-subtitle { font-size:11px; font-weight:normal; color:#999; line-height: 14px  }
+/*
+ICONE
+*/
+.menu-icon-home { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification.png) no-repeat; }
+.menu-icon-flag { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification.png) no-repeat ;  background-position: -20px 0; }
+.menu-icon-pratiche { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification.png) no-repeat ;  background-position: -120px 0; }
+.menu-icon-communication { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification.png) no-repeat ;  background-position: -93px 0; }
+.menu-icon-calendar { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification.png) no-repeat ;  background-position: -45px 0; }
+.menu-icon-settings { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification.png) no-repeat ;  background-position: -68px 0; }
+
+.menu-icon-home-highlight { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification2.png) no-repeat; }
+.menu-icon-flag-highlight { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification2.png) no-repeat ;  background-position: -20px 0; }
+.menu-icon-pratiche-highlight { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification2.png) no-repeat ;  background-position: -120px 0; }
+.menu-icon-communication-highlight { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification2.png) no-repeat ;  background-position: -93px 0; }
+.menu-icon-calendar-highlight { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification2.png) no-repeat ;  background-position: -45px 0; }
+.menu-icon-settings-highlight { width:23px; height:20px; background:url(/static/img/common/menu/top2/notification2.png) no-repeat ;  background-position: -68px 0; }
+
+/*
+LAYOUT
+*/
+#profile {float:right; height:29px; padding-right:33px; margin-left:5px;}
+.profile_name { font-family: Arial, helvetica, sans-serif; font-size:13px; font-weight:bold; color:#FFF; line-height:29px; height:49px; padding-left:5px; padding-right:5px; cursor:pointer; text-decoration:none;}
+.profile_name:hover {color:#dfdfde;}
+.profile_img { padding-bottom:4px}
+.link_submenu { font-family: Arial, helvetica, sans-serif; font-size:13px; color:#535353; line-height:29px; padding-left:5px; padding-right:5px; cursor:pointer; text-decoration:none;}
+.link_submenu:hover {color:#000;}
+
+#menu-bar { background-image: url(/static/img/common/menu/top2/bg.png); 
+ height: 29px; color:#ccc; width:100%;   min-width:980px; }
+
+/* tipografia, colori e regole per voci di primo livello, titoli e link */
+
+
+.menu-bar-nav,.menu-bar-nav li,.menu-bar-nav ul{ margin:0; padding:0; list-style:none; margin:0px;}
+.menu-bar-nav { margin: 0; font-family: Verdena,Tahoma,sans-serif; font-size:11px;  }
+.menu-bar-nav a {display:block; text-decoration:none;    }
+.menu-bar-nav h2, .menu-bar-nav h1{ font-family: Arial, helvetica, sans-serif; font-size:11px; line-height:29px; height:29px; padding-left:5px; padding-right:5px; cursor:pointer; text-decoration:none; margin:0px;}
+.menu-bar-nav h2 a{ color:#ccc;  }
+.menu-bar-nav h1 a{ color:#fff;  font-weight:bold;   }
+
+.menu-bar-nav .h2_inside {color:#6CF; border-right:1px #6CF solid; border-left:1px #6CF solid;   border-top:1px #6CF solid; padding-top:4px; padding-bottom:5px; line-height:19px; height:19px; }
+.menu-bar-nav .h2_inside a {color:#6CF;  }
+.menu-bar-nav .h2_inside a:hover { color:#6CF; }
+
+.menu-bar-nav>li:hover{  border-bottom: 0px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-top:0px; background:url(/static/img/common/menu/top2/bg_over.png); color:#222; margin:0px;   -moz-box-shadow: -1px 1px 1px #CCC; -webkit-box-shadow: 0 1px 5px #CCC; box-shadow: 0 1px 5px #CCC;  }
+
+.menu-bar-nav>li:hover a, .menu-bar-nav>li:hover h1, .menu-bar-nav>li:hover h2 { color:#222; }
+
+.menu-bar-nav h3{font-size:100%;margin:0;}
+.menu-bar-nav h3 a{color: #666; padding-bottom:5px;}
+.menu-bar-nav h3 a:hover{ color: #4096EE;}
+.menu-bar-nav li{float: left;position: relative; margin-left:1px; margin-right:1px; font-size:11px;}
+.menu-bar-nav li li{float: none; margin:0px;  display: block !important;display: inline; /*IE6*/}
+
+
+
+/*dichiarazioni chiave per i sottomenu e l'effetto a comparsa
+NB: classe open  necessaria per JQuery*/
+
+.menu-bar-nav div.mega{position: absolute;top: -9999px;left: -1px;  width: 350px; padding: 10px; border-bottom: 1px solid #eee; border-left: 1px solid #eee; border-right: 1px solid #eee; border-top:0px;
+    background: #fff; overflow:hidden;line-height:1.5;  color:#222; -moz-box-shadow:2px 5px 5px  #CCC; -webkit-box-shadow:2px 5px 5px  #CCC; box-shadow: 2px 5px 5px  #CCC; }
+.menu-bar-nav li:hover div.mega,.menu-bar-nav li div.mega.open{top: 29px;z-index: 100; }
+
+/*tipologie di sottomenu:
+small: colonna singola
+mega: 2 colonne  - default
+wide: 3 colonne
+ultra: 4 colonne
+alt: allineato sul lato destro */
+
+.menu-bar-nav div.mega div{float:left;width:49%; }
+.menu-bar-nav div.mega.small{width:24em}
+.menu-bar-nav div.mega.small div{float:left;width:99.9%}
+.menu-bar-nav div.mega.wide{width:36em}
+.menu-bar-nav div.mega.wide div{float:left;width:33%}
+.menu-bar-nav div.mega.ultra{width:48em}
+.menu-bar-nav div.mega.ultra div{float:left;width:24.9%}
+.menu-bar-nav div.mega.alt{left:auto;right:-1px}
+
+/*regole aggiuntive per i link dei sottomenu*/
+
+.menu-bar-nav div.mega li a{padding:0px 3px 3px 7px;  background: #FFF url(/static/img/common/menu/bullet.png) no-repeat left center; color: #333; }
+.menu-bar-nav div.mega li a:hover{color: #4096EE; font-weight:normal;  }

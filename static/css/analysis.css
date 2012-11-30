@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+/*  LIST */
+
+.analisys_list { width:100%;     }
+.analisys_list ul div { margin-bottom:5px; margin-top:5px;   }
+.analisys_list ul {  color:#666; font-weight:bold; padding-left:20px; padding-top:6px;  margin:0px;   }
+.analisys_list li {  color:#395279; font-weight:normal; margin-left:20px; height:16px;   }
+
+
+

@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+
+/*
+ * CONSOLE
+ */
+
+.console_top{
+   color:#333;
+   font-weight:bold;
+   box-shadow: 0 2px 0px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+}
+.console_top button{ color:#fff; }
+
+.console_body{
+   font-family:sans-serif;
+   background: #020202;
+   opacity:0.9; filter:alpha(opacity=90);
+ 
+}
+#console{
+	width:100%;
+	height:55%;
+	color:#fff;
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	z-index:10;
+	display:none;
+	background:none;
+}

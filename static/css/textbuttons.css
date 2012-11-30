@@ -1,0 +1,57 @@
+/*
+		TITLES
+*/
+.title1		{ 	font-family: "Arial Black", Gadget, sans-serif; font-size:12px; padding:3px; }
+.title2		{	font-family: Arial, Helvetica, sans-serif;	font-size:12px;	padding:3px;	font-weight:bold; }
+
+h1, h2, h3 { color: #444; font-family:Arial, Helvetica, sans-serif; font-weight:normal; }
+
+/*
+		BUTTONS
+*/
+.button1, .button1:link, .button1:visited{
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-size:12px;
+	padding:6px 20px 5px 20px;
+    color:#fff;
+	cursor:pointer;
+	border-left: 1px #ccc solid;
+	border-top: 1px #ccc solid;
+	border-right: 1px #aaa solid;
+	border-bottom: 1px #aaa solid;
+	margin:1px;
+	
+	 
+}
+
+.button2, .button2:link, .button2:visited{
+	font-family: Arial, Gadget, sans-serif;
+	font-weight:bold;
+	font-size:12px;
+	padding:6px 10px 5px 10px;
+    color:#666;
+	
+	cursor:pointer;
+	border-left: 1px #ccc solid;
+	border-top: 1px #ccc solid;
+	border-right: 1px #aaa solid;
+	border-bottom: 1px #aaa solid;
+	margin:1px;
+	line-height:16px;
+	 
+}
+
+
+.button1:hover, .button2:hover {
+	border-width:2px;
+	margin:0px;
+	
+}
+
+
+.button-hidden, .button-hidden:link, .button-hidden:visited{
+	font-family:Arial, Helvetica, sans-serif; line-height:16px; font-size:12px; padding:0px 10px 0px 10px; color:#333; cursor:pointer; border:0px; background:none; vertical-align:middle;
+	
+	 
+}
+.button-hidden:hover { color:#999; }
