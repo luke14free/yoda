@@ -1,142 +1,169 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%;">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>EGG - Business Intelligence</title>
-<link href="include/stile.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-body,td,th {
-	font-family: "Arial Black", Gadget, sans-serif;
-	font-size: 10px;
-	color: #333;
-}
-body { 
-	background-color: #FFF;
-	background-repeat: repeat-x;
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	padding: 0;
-	height: 100%
-}
-</style>
-<script type="text/javascript">
-function MM_swapImgRestore() { //v3.0
-  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
-}
-function MM_preloadImages() { //v3.0
-  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
-    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
-    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
-}
 
-function MM_findObj(n, d) { //v4.01
-  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
-    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
-  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
-  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
-  if(!x && d.getElementById) x=d.getElementById(n); return x;
-}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-function MM_swapImage() { //v3.0
-  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
-   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
-}
-</script>
-</head>
-<body onload="MM_preloadImages('img/btn_view2.png','img/btn_tools2.png','img/btn_help2.png','img/btn_file2.png','img/+2.png','img/-2.png','img/tabelle/bg_scheda_off2.gif')">
-<table width="1000" border="0" cellspacing="0" cellpadding="0" style="height:100%; width: 100%">
-  <tr>
-    <th height="59" colspan="2" scope="col" background="img/bg_topbar.jpg" align="left" style="padding-left:8px;"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image6','','img/btn_file2.png',1)"><img src="img/btn_file1.png" name="Image6" width="79" height="59" border="0" id="Image6" /></a> <a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image3','','img/btn_view2.png',1)"><img src="img/btn_view1.png" name="Image3" width="79" height="59" border="0" id="Image3" /></a> <a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image4','','img/btn_tools2.png',1)"><img src="img/btn_tools1.png" name="Image4" width="79" height="59" border="0" id="Image4" /></a> <a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image5','','img/btn_help2.png',1)"><img src="img/btn_help1.png" name="Image5" width="79" height="59" border="0" id="Image5" /></a></th>
-    <th scope="col" width="200" background="img/bg_topbar.jpg" align="right" style="padding-right:10px;"><a href="index.php"><img src="img/logo_EGG-BUSINESS-INTELLIGENCE.png" border="0" /></a></th>
-  </tr>
-  <tr>
-    <td width="250" valign="top" class="tab">
-    <div id="WORLD">
-    <div id="piu"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image7','','img/+2.png',1)"><img src="img/+.png" name="Image7" width="20" height="18" border="0" id="Image7" align="absmiddle" /></a><a href="#" class="linkmenu">&nbsp;&nbsp;Chiuso 1</a></div>
-    <div id="piu"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image9','','img/+2.png',1)"><img src="img/+.png" name="Image9" width="20" height="18" border="0" id="Image9" align="absmiddle" /></a><a href="#" class="linkmenu">&nbsp;&nbsp;Chiuso 2</a></div>
-    <div id="piu"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image10','','img/+2.png',1)"><img src="img/+.png" name="Image10" width="20" height="18" border="0" id="Image10" align="absmiddle" /></a><a href="#" class="linkmenu">&nbsp;&nbsp;Chiuso 3</a></div>
-    <div id="meno"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image11','','img/-2.png',1)"><img src="img/-.png" name="Image11" width="20" height="18" border="0" id="Image11" align="absmiddle"/></a><a href="#" class="linkmenu">&nbsp;&nbsp;Aperto 4</a></div> 
-    <div id="meno_aperto">
-    <a href="#" class="linkmenu2">Link 1</a><br />
-    <a href="#" class="linkmenu2">Link 2</a><br />
-    <a href="#" class="linkmenu2">Link 3</a><br />
-    <a href="#" class="linkmenu2">Link 4</a><br />
-    <a href="#" class="linkmenu2">Link 5</a><br /></div>    
+    <!-- Le styles -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .brand:hover {
+		text-decoration: none;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .4);
+	  }
+	  .navbar .brand {
+		padding-right: 0;
+		padding-left: 0;
+		margin-left: 5px;
+		margin-right: 20px;
+		font-weight: bold;
+		color: #999;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .125);
+		-webkit-transition: all .2s linear;
+		-moz-transition: all .2s linear;
+		transition: all .2s linear;
+	  }
+	  .skill {
+		  background-color: hsl(41, 85%, 35%) !important;
+		  background-repeat: repeat-x;
+		  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#efb73d", endColorstr="#a5750d");
+		  background-image: -khtml-gradient(linear, left top, left bottom, from(#efb73d), to(#a5750d));
+		  background-image: -moz-linear-gradient(top, #efb73d, #a5750d);
+		  background-image: -ms-linear-gradient(top, #efb73d, #a5750d);
+		  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #efb73d), color-stop(100%, #a5750d));
+		  background-image: -webkit-linear-gradient(top, #efb73d, #a5750d);
+		  background-image: -o-linear-gradient(top, #efb73d, #a5750d);
+		  background-image: linear-gradient(#efb73d, #a5750d);
+		  border-color: #a5750d #a5750d hsl(41, 85%, 29%);
+		  color: #fff !important;
+		  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.39);
+		  -webkit-font-smoothing: antialiased;
+		  font-weight:bold;
+		}
+		.team-members {
+		  background-color: hsl(195, 60%, 35%) !important;
+		  background-repeat: repeat-x;
+		  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2d95b7", endColorstr="#23748e");
+		  background-image: -khtml-gradient(linear, left top, left bottom, from(#2d95b7), to(#23748e));
+		  background-image: -moz-linear-gradient(top, #2d95b7, #23748e);
+		  background-image: -ms-linear-gradient(top, #2d95b7, #23748e);
+		  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2d95b7), color-stop(100%, #23748e));
+		  background-image: -webkit-linear-gradient(top, #2d95b7, #23748e);
+		  background-image: -o-linear-gradient(top, #2d95b7, #23748e);
+		  background-image: linear-gradient(#2d95b7, #23748e);
+		  border-color: #23748e #23748e hsl(195, 60%, 32.5%);
+		  color: #fff !important;
+		  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.16);
+		  -webkit-font-smoothing: antialiased;
+		  font-weight:bold;
+		}
+		.team-headcount {
+		  background-color: hsl(214, 37%, 28%) !important;
+		  background-repeat: repeat-x;
+		  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7a99c1", endColorstr="#2c4361");
+		  background-image: -khtml-gradient(linear, left top, left bottom, from(#7a99c1), to(#2c4361));
+		  background-image: -moz-linear-gradient(top, #7a99c1, #2c4361);
+		  background-image: -ms-linear-gradient(top, #7a99c1, #2c4361);
+		  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7a99c1), color-stop(100%, #2c4361));
+		  background-image: -webkit-linear-gradient(top, #7a99c1, #2c4361);
+		  background-image: -o-linear-gradient(top, #7a99c1, #2c4361);
+		  background-image: linear-gradient(#7a99c1, #2c4361);
+		  border-color: #2c4361 #2c4361 hsl(214, 37%, 19.5%);
+		  color: #fff !important;
+		  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.56);
+		  -webkit-font-smoothing: antialiased;
+		  font-weight:bold;
+		}
+
+
+    </style>
+    {% block css %}{% endblock css %}
+    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="/static/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="/">Yoda Profile Management</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              <a href="/profile" class="navbar-link">{% block user %}{% endblock user %}</a>
+            </p>
+            <ul class="nav">
+              <li class="active"><a href="/profile">Profile</a></li>
+              
+            </ul>
+          </div><!--/.nav-collapse -->
+	      <div style='margin-left:35%'>
+	        {% block search %}{% endblock search %}
+	      </div>
+        </div>
+
+      </div>
     </div>
-    
-    <div id="piu"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image12','','img/+2.png',1)"><img src="img/+.png" name="Image12" width="20" height="18" border="0" id="Image12" align="absmiddle" /></a><a href="#" class="linkmenu">&nbsp;&nbsp;Chiuso 5</a></div>
-    <div id="piu"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image13','','img/+2.png',1)"><img src="img/+.png" name="Image13" width="20" height="18" border="0" id="Image13" align="absmiddle" /></a><a href="#" class="linkmenu">&nbsp;&nbsp;Chiuso 6</a></div>
-    </td>
-    <td colspan="2" rowspan="2" style="height:100%;" class="tab" valign="top"><div id="WORLD2">
-    <table border="0" cellspacing="0" cellpadding="0" style="height:100%; width: 100%">
-  <tr>
-    <th scope="col" background="img/bg_strumenti.png" height="42" align="left" style="padding-left:10px">
-    <a href="#"><img src="img/strumenti/torta.png" width="27" height="42" border="0"/></a>
-    <a href="#"><img src="img/strumenti/aggiungi.png" width="30" height="42" border="0" /></a>
-    <a href="#"><img src="img/strumenti/v.png" width="31" height="42"  border="0"/></a>
-    <a href="#"><img src="img/strumenti/elimina.png" width="27" height="42"  border="0"/></a> 
-    <a href="#"><img src="img/strumenti/freccia_sx.png" width="31" height="42" border="0" /></a>
-    <a href="#"><img src="img/strumenti/freccia_dx.png" width="31" height="42" border="0" /></a>
-    <a href="#"><img src="img/strumenti/mail.png" width="39" height="42"  border="0"/></a>
-    <a href="#"><img src="img/strumenti/info.png" width="26" height="42"  border="0"/></a>
-    <a href="#"><img src="img/strumenti/stampante.png" width="27" height="42"  border="0"/></a>
-    </th>
-  </tr>
-  <tr>
-    <td height="259" bgcolor="#ffffff" style="padding:10px;:" valign="top"><span class="tit">. Documenti</span><br /><br />
-    <table border="0" cellspacing="0" cellpadding="0" class="tab">
-  <tr>
-    <th scope="col" align="right" class="tab_tit_blue">Matrice</th>
-  </tr>
-  <tr>
-    <td>
-    	{% block main %}{% endblock main %}
-		<!--<img src="img/tabelle/esempio_grafico1.gif" />-->
-	</td>
-  </tr>
-</table>
+        	      	
 
-    </td>
-  </tr>
-  <tr>
-    <td bgcolor="#999999"><div id="scheda_off"><a href="#" class="link_scheda">Scheda Spenta</a></div><div id="scheda_on">Scheda Accesa</div><div id="scheda_off"><a href="#" class="link_scheda">Scheda Spenta</a></div><div id="scheda_off"><a href="#" class="link_scheda">Scheda Spenta</a></div><div id="scheda_off"><a href="#" class="link_scheda">Scheda Spenta</a></div></td>
-  </tr>
-  <tr>
-    <td height="259" bgcolor="#ffffff" style="padding:10px;" valign="top"><span class="tit">. Titolo Tabella o Sezione</span></td>
-  </tr>
-</table>
 
-    
-    <!--<div id="strumenti" style="padding-left:10px;"> <img src="img/strumenti/torta.png" width="27" height="42" /> <img src="img/strumenti/aggiungi.png" width="30" height="42" /> <img src="img/strumenti/v.png" width="31" height="42" /> <img src="img/strumenti/elimina.png" width="27" height="42" /> <img src="img/strumenti/freccia_sx.png" width="31" height="42" /> <img src="img/strumenti/freccia_dx.png" width="31" height="42" /> <img src="img/strumenti/mail.png" width="39" height="42" /> <img src="img/strumenti/info.png" width="26" height="42" /> <img src="img/strumenti/stampante.png" width="27" height="42" /></div>-->
-    </div></td>
-  </tr>
-  <tr>
-    <td class="tab" valign="top">
-    <div id="piu2"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image101','','img/+2.png',1)"><img src="img/+.png" name="Image101" width="20" height="18" border="0" id="Image101" align="absmiddle" /></a><a href="#" class="linkmenu">&nbsp;&nbsp;Chiuso 3</a></div>
-    <div id="piu2"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image102','','img/+2.png',1)"><img src="img/+.png" name="Image102" width="20" height="18" border="0" id="Image102" align="absmiddle" /></a><a href="#" class="linkmenu">&nbsp;&nbsp;Chiuso 3</a></div>
-    <div id="piu2"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image103','','img/+2.png',1)"><img src="img/+.png" name="Image103" width="20" height="18" border="0" id="Image103" align="absmiddle" /></a><a href="#" class="linkmenu">&nbsp;&nbsp;Chiuso 3</a></div>
-    <div id="piu2"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image104','','img/+2.png',1)"><img src="img/+.png" name="Image104" width="20" height="18" border="0" id="Image104" align="absmiddle" /></a><a href="#" class="linkmenu">&nbsp;&nbsp;Chiuso 3</a></div>
-    <div id="piu2"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image105','','img/+2.png',1)"><img src="img/+.png" name="Image105" width="20" height="18" border="0" id="Image105" align="absmiddle" /></a><a href="#" class="linkmenu">&nbsp;&nbsp;Chiuso 3</a></div>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" height="26" background="img/bg_footbar.jpg"></td>
-    <td background="img/bg_footbar.jpg" align="right" style="padding-right:10px; color: #999;"><a href="#" class="link">LINK 1</a> - <a href="#" class="link">LINK 2</a> - <a href="#" class="link">LINK 3</a> - <a href="#" class="link">LINK 4</a></td>
-  </tr>
-</table>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+          	{% block sidebar %}{% endblock sidebar %}
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          <div class="hero-unit">
+            {% block main %}{% endblock main %}
+          </div>
+          <div class="hero-unit">
+            {% block info %}{% endblock info %}
+          </div>
 
-</body>
-<script>
-function populate_filter_list(id,model){
-	1;
-}
+          <div class="row-fluid">
+          	{% block secondary %}{% endblock secondary %}
+          </div><!--/row-->
+        </div><!--/span-->
+      </div><!--/row-->
 
-$(document).ready(function() 
-{
-	2
-});
+      <hr>
 
-</script>
+      <footer>
+        <p><span style='font-family: monospace; font-size:12px !important;'>(Ↄ) <a href='http://en.wikipedia.org/wiki/Copyleft'>Copyleft</a> by KenobyCorp</span></p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+	{% block js %}
+	{% endblock js %}
+  </body>
 </html>

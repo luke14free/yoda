@@ -6,11 +6,29 @@ from djangoappengine.settings_base import *
 import os
 
 # Activate django-dbindexer for the default database
-DATABASES['native'] = DATABASES['default']
-DATABASES['default'] = {'ENGINE': 'dbindexer', 'TARGET': 'native'}
-AUTOLOAD_SITECONF = 'indexes'
+DATABASES = {
+    'default': {
+        'ENGINE': 'dbindexer',
+        'TARGET': 'gae',
+    },
+    'gae': {
+        'ENGINE': 'djangoappengine.db',
+    },
+}
+
+DBINDEXER_BACKENDS = (
+    'dbindexer.backends.BaseResolver',
+    'dbindexer.backends.FKNullFix',
+    'dbindexer.backends.InMemoryJOINResolver',
+)
+
+AUTOLOAD_SITECONF = 'dbindexes'
 
 SECRET_KEY = '=r-$b*8hglm+858&9t043hlm6-&6-3d3vfc4((7yd0dbrakhvi'
+
+ADMINS = ('luca.giacomel@gmail.com',)
+HR = ('hr@yourdomain.com',)
+DOMAIN = "yoda-profile-management.appspot.com"
 
 INSTALLED_APPS = (
 #    'django.contrib.admin',
@@ -20,6 +38,7 @@ INSTALLED_APPS = (
     'djangotoolbox',
     'autoload',
     'dbindexer',
+    'filetransfers',
     'yoda',
     # djangoappengine should come last, so it can override a few manage.py commands
     'djangoappengine',
@@ -28,7 +47,6 @@ INSTALLED_APPS = (
 MIDDLEWARE_CLASSES = (
     # This loads the index definitions, so it has to come first
     'autoload.middleware.AutoloadMiddleware',
-
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
