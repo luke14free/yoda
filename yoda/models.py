@@ -30,6 +30,12 @@ class Profile (models.Model):
     
     def get_skills(self):
         return Skill.objects.filter(owner_id = self.pk)
+
+    def thumbnail(self,size=45):
+        gravatar_url = "http://www.gravatar.com/avatar/"
+        gravatar_url += hashlib.md5(self.email.lower()).hexdigest() + "?"
+        gravatar_url += urllib.urlencode({'s':str(size),'d':'http://'+settings.DOMAIN+"/static/img/yoda.jpg"})
+        return gravatar_url
     
     def get_gravatar_url(self,size=250):
         gravatar_url = "http://www.gravatar.com/avatar/"

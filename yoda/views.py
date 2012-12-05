@@ -51,7 +51,7 @@ def login_required(view):
     def wrapper(*args, **kwds):
         user = get_current_user()
         if not user:
-            return HttpResponseRedirect(create_login_url(dest_url="/"))
+            return HttpResponseRedirect(create_login_url(dest_url="/profile"))
         return view(*args, **kwds)
     return wrapper    
 
@@ -92,12 +92,13 @@ def profile(request):
         is_profile_owner = True
         is_real_owner = True
     else:
-        is_real_owner = False
         user = users.User(user_email)
         profile = get_or_create_profile(user)
         is_profile_owner = False
+        is_real_owner = False
         if user.email() == current_user.email():
             is_profile_owner = True
+            is_real_owner = True
             
     if is_current_user_admin(current_user):
         is_profile_owner = True
@@ -166,15 +167,23 @@ def search(request):
     p = request.GET.get('p',0)
     out = []
     
+    def personToJson(i):
+        return {'full_name':i.full_name,
+                'email':i.email,
+                'img_url':i.get_gravatar_url(gravatar_size),
+                'job_position':i.job_position,
+                'location':i.location,
+                'thumbnail':i.thumbnail()}
+    
     gravatar_size = 90
     
     if t == "people":
         for i in Profile.objects.filter(full_name__icontains = q):
-            z = {'full_name':i.full_name,'email':i.email,'img_url':i.get_gravatar_url(gravatar_size)}
+            z = personToJson(i)
             if z not in out:
                 out.append(z)
         for i in Profile.objects.filter(email__icontains = q):
-            z = {'full_name':i.full_name,'email':i.email,'img_url':i.get_gravatar_url(gravatar_size)}
+            z = personToJson(i)
             if z not in out:
                 out.append(z)
         
@@ -193,6 +202,7 @@ def search(request):
             
     return HttpResponse(json.dumps(out), mimetype="application/json")
         
-    
-    
+@login_required
+def logout(request):
+    return HttpResponseRedirect(create_login_url(dest_url="/"))
     
