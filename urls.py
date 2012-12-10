@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^skills/put$', yoda.views.put_skill, name='put_skill'),
     url(r'^skills/remove$', yoda.views.remove_skill, name='remove_skill'),
     url(r'^search$', yoda.views.search, name='search'),
+    url(r'^team$',yoda.views.team, name='team'),
     url(r'^logout$', yoda.views.logout, name='logout'),
     url(r'', yoda.views.public_index, name='index'),
     

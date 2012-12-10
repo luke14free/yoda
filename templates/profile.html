@@ -1,0 +1,616 @@
+{% extends "base.html" %}
+{% block title %}Your profile{% endblock title %}
+{% block user %}
+{{profile.email}}
+{% endblock user %}
+{% block css %}
+{% if is_profile_owner %}
+<style>
+.editable{
+	padding:5px;
+	cursor:pointer;
+}
+.editable:hover{
+	color:#999;
+}
+p{
+	font-size:16px !important;
+}
+</style>
+{% else %}
+<style>
+.editable{
+	padding:5px;
+}
+p{
+	font-size:16px !important;
+}
+</style>
+{% endif %}
+{% endblock css %}
+{% block search %}
+<div class="input-prepend">
+  <div class="btn-group">
+    <button class="btn dropdown-toggle" data-toggle="dropdown">
+      <span id='search_selected'>People</span>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+    	<li><a href='#' onclick="$('#search_selected').html('People')">People</a></li>
+    	<li><a href='#' onclick="$('#search_selected').html('Skills')">Skills</a></li>
+    	<li><a href='#' onclick="$('#search_selected').html('People with skills')">People with skills</a></li>
+    </ul>
+  </div>
+  <input class="span2" id="search" type="text" style='margin-top:5px;'>
+</div>
+{% endblock search %}
+{% block sidebar %}
+<div style='padding:20px;'>
+	<div style='text-align:center'>
+		<img src = '{{profile.get_gravatar_url}}' class="img-rounded">
+		{% if is_real_owner %}
+			<div style='margin-top:20px'>Change your image on <a href='https://en.gravatar.com/'>gravatar</a></div>
+		{% endif %}
+		<!--<img src = '/static/img/unknown.jpg' width='200px;' class="img-circle">-->
+	</div>
+	{% if is_real_owner %}
+	<hr>
+	<script type="IN/Login"></script>
+	<a href='#confirm-linkedin' id='linkedin-update' style='display:none' class='btn team-headcount' onclick='confirm_update()'>Sync with linked-in</a>
+	{% endif %}
+	{% if is_profile_owner or profile.get_skills %}
+	<hr>
+	<h4>My skills:</h4>
+	{% endif %}
+	<div id='skills' style='line-height: 35px; width:5px;'>		
+		{% for skill in profile.get_skills %}
+		{% if is_profile_owner %}
+			<span class="input-append" id='skill_{{skill.pk}}' style='margin:5px;'>
+			  <span class="btn-group">
+			    <button class="skill btn dropdown-toggle" data-h='41' data-s='85' data-l='47' data-p='12' data-toggle="dropdown">
+			    	{{skill.name}} {% ifnotequal skill.years_of_experience 0 %}({{skill.years_of_experience}}){% endifnotequal %}
+			        <span class="caret"></span>
+			    </button>
+			    <ul class="dropdown-menu">
+			      <li><a href='#' onclick='delete_skill({{skill.pk}},"#skill_{{skill.pk}}")'>Delete</a></li>
+			      <li><a href='/skill/{{skill.name}}'>Skill page</a></li>
+			    </ul>
+			  </span>
+			</span>
+		{% else %}
+			<a href='#' class='skill large btn' data-h='41' data-s='85' data-l='47' data-p='12'>{{skill.name}} ({{skill.years_of_experience}})</a>
+		{% endif %}
+		{% endfor %}
+	</div>
+	{% if is_profile_owner %}
+		<hr>
+		<h4>Add Skill:</h4>
+		Skill:<br/>
+		<input type='text' id='skill_name'/>
+		Years of experience:<br/>
+		<input type='number' id='years_of_experience' value='1'/><br/>
+		<a class='btn' href='#' id='add_skill_btn'>Add</a>
+	{% endif %}
+</div>
+{% endblock sidebar %}
+{% block main %}
+<h2><span id='full_name' class='editable inline'>{{profile.full_name}}</span> - <a href='mailto:{{profile.email}}'>{{profile.email}}</a></h2>
+<hr>
+<p>
+	Job position: <span id='job_position' class='editable inline'>{% firstof profile.job_position "Not specified" %}</span>
+</p>
+<p>
+	Office location: <span id='location' class='editable inline'>{% firstof profile.location "Not specified" %}</span>
+</p>
+{% endblock main %}
+{% block info %}
+<h2 style='color:#555'>Team view</h2>
+<div style='margin: 50px;'>
+{% if not is_profile_owner and not profile.get_manager %}
+
+		&nbsp;
+	{% else %}
+	<p>
+		
+		
+		<h4 style='margin-top:20px'>
+			<div style='form-inline'>My manager: 
+			{% if is_profile_owner %}
+				{% if profile.get_manager %}
+					<a href='#' onclick='$("#managerModalSearch").modal("show");'>edit</a>
+				{% else %}
+					<a href='#' onclick='$("#managerModalSearch").modal("show");'>set</a>
+				{% endif %}
+			{% endif %}
+			</div>
+		</h4>
+		
+		<div id='manager_container'>
+			{% if profile.get_manager %}
+			<table class="table" style='width:100%'>
+				<tr>
+					<td style='width:50px'>
+						<a href='/profile?email={{profile.get_manager.email}}'>
+							<img id='manager_pic' src="{{profile.get_manager.thumbnail}}" width='45px' class='img-rounded' />
+						</a>
+					</td>
+					<td style='vertical-align: middle'>
+						<a href='/profile?email={{profile.get_manager.email}}' id='manager_full_name'>
+							{{ profile.get_manager.full_name|title }}
+						</a>
+					</td>
+					<td style='vertical-align: middle' id='manager_job_position'>{% firstof profile.get_manager.job_position "" %}</td>
+					<td style='vertical-align: middle'id='manager_job_position'>{% firstof profile.get_manager.location "" %}</td>
+				</tr>
+			</table>
+			{% endif %}
+		</div>
+		
+		
+		
+		
+		
+		{% comment %}
+		Manager:
+			<div class='form-inline'><span class='editable inline manager' id='manager'>{{profile.get_manager.email}}</span> <a href='/profile?email={{profile.get_manager.email}}' id='manager_profile'>profile</a></div>
+		{% else %}
+			<span id='manager' class='editable inline manager'>Not specified</span>
+		{% endif %}
+	    {% endcomment %}
+	      <div class="alert alert-block alert-error fade in" style='display:none;'>
+            <button type="button" class="close" onclick='$(".alert").hide();'>&times;</button>
+            <h4 class="alert-heading">Oh snap! This is not a valid email address!</h4>
+            <p>Change this field to a valid email address and then try again.</p>
+          </div>
+          
+	</p>
+{% endif %}
+{% if profile.get_team  %}
+	<h4 style='margin-top:20px'>My team</h4>
+	
+	<table class="table" style='width:100%'>
+	{% for member in profile.get_team %}
+		<tr>
+			<td style='width:50px'>
+				<a href='/profile?email={{member.email}}'>
+					<img src="{{member.thumbnail}}" width='45px' class='img-rounded' />
+				</a>
+			</td>
+			<td style='vertical-align: middle'>
+				<a href='/profile?email={{member.email}}'>
+					{{member.full_name|title}}
+				</a>
+			</td>
+			<td style='vertical-align: middle'>{% firstof member.job_position "" %}</td>
+			<td style='vertical-align: middle'>{% firstof member.location "" %}</td>
+		</tr>
+	{% endfor %}
+	</table>
+	{% if profile.get_headcount %}
+	<hr>
+	{% endif %}
+{% endif %}
+
+{% if profile.get_headcount %}
+	
+	<h4 style='margin-top:20px'>People I manage</h4>
+	<table class="table" style='width:100%'>
+	{% for member in profile.get_headcount %}
+		<tr>
+			<td style='width:50px'>
+				<a href='/profile?email={{member.email}}'>
+					<img src="{{member.thumbnail}}" width='45px' class='img-rounded' />
+				</a>
+			</td>
+			<td style='vertical-align: middle'>
+				<a href='/profile?email={{member.email}}'>
+					{{member.full_name|title}}
+				</a>
+			</td>
+			<td style='vertical-align: middle'>{% firstof member.job_position "" %}</td>
+			<td style='vertical-align: middle'>{% firstof member.location "" %}</td>
+		</tr>
+	{% endfor %}
+	</table>
+{% endif %}
+{% if profile.get_team or profile.get_headcount %}
+	<hr>
+	<h4 style='margin-top:20px'>Where is my team?</h4>
+	<div id='team_map' style="width: 100%; height: 300px; display:none;">&nbsp;</div>
+{% endif %}
+</div>
+{% endblock info %}
+{% block secondary %}
+
+<div class="row-fluid">
+	<div class="span6 well well-large">
+		<h2>About me</h2>
+		<p>
+			<div class='editable' id='about_me'>{% firstof profile.about_me "Not specified" %}</div>
+		</p>
+	</div><!--/span-->
+	<div class="span6 well well-large">
+		<h2>Education</h2>
+		<p>
+			<div class='editable' id='education'>{% firstof profile.education "Not specified" %}</div>
+		</p>
+	</div><!--/span-->
+</div><!--/row-->
+<div class="row-fluid">
+	<div class="span6 well well-large">
+		<h2>Work experiences</h2>
+		<p>
+			<div class='editable' id='work_experiences'>{% firstof profile.work_experiences "Not specified" %}</div>
+		</p>
+	</div><!--/span-->
+	<div class="span6 well well-large">
+		<h2>Contacts</h2>
+		<p>
+			Telephone: <span class='editable inline' id='phone'>{% firstof profile.phone "Not specified" %}</span>
+		</p>
+		<p>
+			Mobile phone: <span id='mobile_phone' class='editable inline'>{% firstof profile.mobile_phone "Not specified" %}</span>
+		</p>
+	</div><!--/span-->
+</div>
+<div class="modal fade" id="linkedin-confirm">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3 style='color:darkred'>Linked-in syncronization</h3>
+  </div>
+  <div class="modal-body">
+    <p>Do you whish to sync your current profile with the data of your linkedin profile?</p>
+    <hr>
+    <p>Note: this will overwrite your current yoda profile info</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary" onclick="onLinkedInAuth(true)" data-dismiss="modal">Yes</a>
+    <a href="#" class="btn" data-dismiss="modal">No</a>
+  </div>
+</div>
+
+<div class="modal fade" id="linkedin-success">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3 style='color: darkgreen;'>Success!</h3>
+  </div>
+  <div class="modal-body">
+    <p>Fear not young Jedi. Yoda has successfully imported your data from linkedin.</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>
+ 
+<div id="searchModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="headerLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="headerLabel" style='color:darkblue'>Seach results</h3>
+  </div>
+  <div class="modal-body">
+  	<div id='search_results' style='text-align:center; width:100%'>
+  		
+  	</div>
+  </div>
+</div>
+
+<div id="managerModalSearch" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mgrHeaderLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="mgrHeaderLabel" style='color:darkblue'>Who's your manager?</h3>
+  </div>
+  <div class="modal-body">
+  	<div id='mgr_search_results' style='text-align:center; width:100%'>
+  		<p style='margin-top:50px;margin-bottom:50px; color:#666'>Type your manager name or email in the search box and press enter.</p>
+  	</div>
+  </div>
+  <div class="modal-footer">
+	<span style='float:right; margin:0px !important;' class='form-inline'>
+	    <span>Name or email:</span> <input type='text' id='search_manager'></p>
+    </span>
+  </div>
+</div>
+
+{% endblock secondary %}
+{% block js %}
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBfI4OE5DgEow0bStnaMajll1deDGkGXhA&sensor=false" type="text/javascript"></script>
+  
+<script type="text/javascript" src="http://platform.linkedin.com/in.js">
+  api_key: xdxtjm0s731e
+  onLoad: onLinkedInLoad
+  authorize: true
+  scope: r_fullprofile
+</script>
+
+<script>
+	var prevent_trigger = false;
+	var is_profile_owner = "{{is_profile_owner}}";
+	var map;
+	
+	function onLinkedInLoad() {
+    	IN.Event.on(IN, "auth", function(){$("#linkedin-update").show()});//confirm_update);
+    }
+    function confirm_update(){
+    	$('#linkedin-confirm').modal('show');
+    }
+    function onLinkedInAuth(load) {
+    	is_already_in = "{{profile.is_already_in}}";
+    	is_real_owner = "{{is_real_owner}}";
+    	if(is_real_owner == "True" && (is_already_in == "False" || load == true)){
+    		IN.API.Profile("me").fields("firstName", "lastName", "positions", "skills", "educations", "summary").result(displayProfiles);
+    	}
+  	}
+  	function displayProfiles(profiles) {
+    	my_profile = profiles.values[0];
+    	edu = "";
+    	wex = "";
+    	sks = [];
+    	educations = my_profile.educations.values;
+    	console.log(educations)
+    	for(i=0; i < my_profile.educations.values.length; i++){
+    		edu += "<b>"+educations[i].schoolName+":</b> "+educations[i].degree+" "+educations[i].fieldOfStudy+"<br/>";
+    	}
+    	$("#education").html(edu);
+    	update_info("education",edu);
+    	positions = my_profile.positions.values;
+    	console.log(positions);
+    	
+    	for(i=0; i < my_profile.positions.values.length; i++){
+    		wex += "<b>"+positions[i].title+"</b><br/> "+positions[i].summary+"<br/><br/>";
+    	}
+    	wex = wex.replace(/\n/g, "<br />");
+    	if(wex!=undefined){
+    		$("#work_experiences").html(wex);
+    		update_info("work_experiences",wex);
+    	}
+    	if(my_profile.summary!=undefined){
+    		$("#about_me").html(my_profile.summary);
+    		update_info("about_me",my_profile.summary);
+    	}
+    	if(my_profile.firstName!=undefined && my_profile.lastName!=undefined){
+    		$("#full_name").html(my_profile.firstName+" "+my_profile.lastName);
+    		update_info("full_name",my_profile.firstName+" "+my_profile.lastName);
+    	}
+    	skills = my_profile.skills.values;
+    	console.log(skills);
+    	drop_all = 1;
+    	$("#skills").html("");
+    	for(i=0; i < my_profile.skills.values.length; i++){
+    		skill_name=skills[i].skill.name;
+    		skill_yoe=skills[i].skill.years != undefined ? skills[i].skill.years : 0;
+    		$.get("/skills/put?drop_all="+drop_all+"&skill_name="+skill_name+"&years_of_experience="+skill_yoe+"&user_email={{profile.email}}",function(obj){
+				$(".no_skills").remove();
+				t = generate_skill_html(obj.pk,obj.name,obj.years_of_experience)+" ";
+				$("#skills").append(t);
+			})
+			drop_all *= 0;
+    	}
+
+    	update_info("is_already_in","True");
+    	$('#linkedin-success').modal('show');
+    	
+  	}
+  	
+  	function display_team_map() {
+        var mapOptions = {
+          zoom: 4,
+          center: new google.maps.LatLng(-25.363882, 131.044922),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById('team_map'),
+            mapOptions);
+            
+        geocoder = new google.maps.Geocoder();
+		$.get("/team",function(data){
+			for(i=0; i<data.length; i++){
+				create_marker(geocoder, map, data[i].email, data[i].full_name, data[i].job_position, data[i].location, data[i].thumbnail);
+			}
+		})
+		$("#team_map").show();
+    }
+    
+    function create_marker(geocoder, map, email, full_name, job_position, location, thumbnail) {
+    	if(location=="" || location==null || location == undefined){
+    		return;
+    	}
+	    var address = location;
+	    geocoder.geocode( {'address': location}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        map.setCenter(results[0].geometry.location);
+	        var marker = new google.maps.Marker({
+	            map: map,
+	            position: results[0].geometry.location,
+	            title: email
+	        });
+	        google.maps.event.addListener( marker, "click", 
+                function(event) { 
+                	var infoWindow = new google.maps.InfoWindow();
+                	infoWindow.setContent('Some info on yourOverlay');
+        			infoWindow.setPosition(event.latLng);
+   					infoWindow.open(map);
+                }
+            );
+
+	      } else {
+	        console.log("Geocode was not successful for the following reason: " + status);
+	      }
+	    });
+	  }
+
+  	
+  	function setManager(email,full_name,thumbnail,job_position,location){
+		out  ="<table style='width:100%' class='table'>";
+		out +="<tr>"
+		out +="<td style='width:50px'>"
+		out +="	<a href='/profile?email="+email+"'>"
+		out +="		<img src='"+thumbnail+"' width='45px' class='img-rounded' />"
+		out +="	</a>"
+		out +="</td>"
+		out +="<td style='vertical-align: middle'>"
+		out +="	<a href='/profile?email="+email+"'>"
+		out +="		"+full_name.title();
+		out +="	</a>"
+		out +="</td>"
+		out +="<td style='vertical-align: middle'>"+job_position+"</td>"
+		out +="<td style='vertical-align: middle'>"+location+"</td>"
+		out +="</tr>";
+		out +="</table>"
+		$("#manager_container").html(out);
+		update_info("manager",email);
+  	}
+  	
+	function validateEmail(email) { 
+	    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    return re.test(email);
+	} 
+	String.prototype.title = function () {
+	    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	};
+	function update_info(key, value){
+		$.post("/profile/update",{'key':key,'value':value,'user_email':"{{profile.email}}"},function(data){1});
+	}
+	function delete_skill(skill_id, elem){
+		$.get("/skills/remove?pk="+skill_id+"&user_email={{profile.email}}",function(){$(elem).remove()});
+	}
+	function generate_skill_html(skill_id, skill_name, skill_yoe){
+		out="<span class='input-append' id='skill_"+skill_id+"' style='margin:5px;'>";
+		out+="  <span class='btn-group'>";
+		out+="    <button class='skill btn dropdown-toggle' data-h='41' data-s='85' data-l='47' data-p='12' data-toggle='dropdown'>";
+		if(skill_yoe!=0){
+			out+="    	"+skill_name+" ("+skill_yoe+")";
+		}else{
+			out+="    	"+skill_name;
+		}
+		out+="        <span class='caret'></span>";
+		out+="    </button>";
+		out+="    <ul class='dropdown-menu'>";
+		out+="      <li><a href='#' onclick='delete_skill("+skill_id+",\"#skill_"+skill_id+"\")'>Delete</a></li>";
+		out+="      <li><a href='/skill/"+skill_name+"'>Skill page</a></li>";
+		out+="    </ul>";
+		out+="  </span>";
+		out+="</span>";
+		return out;
+	}
+	$(document).ready(function() {
+		{% if profile.get_team or profile.get_headcount %}
+		display_team_map();
+		{% endif %}		
+		
+		$('#add_skill_btn').click(function(){
+			var skill_name = $("#skill_name").val();
+			var skill_yoe = $("#years_of_experience").val();
+			$.get("/skills/put?skill_name="+skill_name+"&years_of_experience="+skill_yoe+"&user_email={{profile.email}}",function(obj){
+				$(".no_skills").remove();
+				t = generate_skill_html(obj.pk,obj.name,obj.years_of_experience)+" ";
+				$("#skills").append(t);
+			})
+		});
+		
+		$('#search_manager').keypress(function(e) {
+			console.log("i")
+    		if(e.which == 13 || 1==1) {
+			    $.get("/search?t=people&q="+$(this).val(),function(data){
+			    	search_results = "<p>Results</p>"
+    				search_results += "<table class='table' style='width:100%'>";
+    				for(i=0; i<data.length; i++){
+    					var member = data[i];
+    					console.log(member.email);
+	    				search_results +="<tr>"
+						search_results +="<td style='width:50px'>"
+						/* we prevent xss sanitizing the string from the server side */
+						search_results +="	<a href='#' data-dismiss='modal' onclick='setManager(\""+member.email.replace('"','\"')+"\",\""+member.full_name.title().replace('"','\"')+"\",\""+member.thumbnail.replace('"','\"')+"\",\""+member.job_position.replace('"','\"')+"\",\""+member.location.replace('"','\"')+"\")'>"
+						search_results +="		<img src='"+member.thumbnail+"' width='45px' class='img-rounded' />"
+						search_results +="	</a>"
+						search_results +="</td>"
+						search_results +="<td style='vertical-align: middle'>"
+						search_results +="	<a href='#' data-dismiss='modal' onclick='setManager(\""+member.email.replace('"','\"')+"\",\""+member.full_name.title().replace('"','\"')+"\",\""+member.thumbnail.replace('"','\"')+"\",\""+member.job_position.replace('"','\"')+"\",\""+member.location.replace('"','\"')+"\")'>"
+						search_results +="		"+member.full_name.title();
+						search_results +="	</a>"
+						search_results +="</td>"
+						search_results +="<td style='vertical-align: middle'>"+member.job_position+"</td>"
+						search_results +="<td style='vertical-align: middle'>"+member.location+"</td>"
+						search_results +="</tr>"
+	    			}
+	    			search_results += "</table>"
+	    			$("#mgr_search_results").html(search_results);
+	    			$("#mgr_search_results").html(search_results);
+    				if($("#mgr_search_results").html() == ""){
+    					$("#mgr_search_results").html("<h2>No results :(</h2>");
+    				}
+
+    			});
+    		}
+  		});
+		
+		$('#search').keypress(function(e) {
+    		if(e.which == 13) {
+    			var t = $('#search_selected').html().replace(/\s/g,"-").toLowerCase()
+    			console.log(t)
+    			$.get("/search?t="+t+"&q="+$("#search").val(),function(data){
+    				$("#searchModal").modal("show");
+    				search_results = "";
+    				if(t == "people" || t == "people-with-skills"){
+	    				for(i=0; i<data.length; i++){
+	    					search_results += "<span style='float:left;margin:15px; width:100px; text-align:center' class='well'>";
+	    					search_results += "<a href='/profile?email="+data[i].email+"' >";
+	    					search_results += "<img border='0' class='img-rounded' src='"+data[i].img_url+"'><br/>";
+	    					search_results += data[i].full_name;
+	    					search_results += "</a></span>";
+	    				}
+	    			}else{
+	    				for(i=0; i<data.length; i++){
+	    					search_results += "<span style='float:left;margin:20px;'>";
+	    					search_results += "<a class='btn team-members' href='/skill?name="+data[i].name+"' ><p>";
+	    					search_results += data[i].name;
+	    					search_results += "</p><p>"+data[i].total_people+" have this skill</p></span>";
+	    				}
+	    			}
+    				$("#search_results").html(search_results);
+    				if($("#search_results").html() == ""){
+    					$("#search_results").html("<h2>No results :(</h2>");
+    				}
+    			})		
+    		}
+		});
+
+		$('.editable').click(function() {
+			if($(this).html().match(/^\<textarea/) || $(this).html().match(/^\<input/) || prevent_trigger || is_profile_owner == "False"){
+				if(prevent_trigger){ prevent_trigger = false; }
+				return;
+			}
+			var original_value = $(this).html();
+			if(original_value == "Not specified" || original_value == "Unknown location"){
+				original_value = "";
+			}
+			var elem_id = $(this).attr('id');
+			if(!$(this).hasClass("inline")){
+				$(this).html("<textarea id ='"+elem_id+"_edit'>"+original_value+"</textarea>");
+			}else{
+				if($(this).hasClass('manager')){
+					$("#manager_profile").hide();
+					$(this).html("<input type='email' id ='"+elem_id+"_edit' value='"+original_value+"' style='margin-right:5px; margin-bottom:-0.5px'/>");
+					$(this).append("<a href='#' onclick='$(\"#managerModalSearch\").modal(\"show\");' class='btn team-headcount'>Find your manager!</a>")
+				    $(this).append("<p style='color:darkred'>*Every time you change your manager an email will be sent both to the HR and to your new manager.</p>");
+				}else{
+					$(this).html("<input type='text' id ='"+elem_id+"_edit' value='"+original_value+"' style='margin-right:5px; margin-bottom:-0.5px'/>");
+				}
+			}
+			$("#"+elem_id+"_edit").keypress(function(e) {
+    			if(e.which == 13) {
+    				if($(this).attr("type")=="email"){
+    					if(!validateEmail($(this).val())){
+    						$(".alert").show();
+    						return false;
+    					}
+    					$("#manager_profile").show();
+    				}
+					update_info(elem_id, $("#"+elem_id+"_edit").val());
+					$("#"+elem_id).html($("#"+elem_id+"_edit").val());
+					prevent_trigger = true;
+				}
+			});
+		});
+	});
+</script>
+{% endblock js %}
